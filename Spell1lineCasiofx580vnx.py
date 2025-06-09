@@ -215,21 +215,21 @@ def spell (line):
                     var_name = line.split('=')[0].strip()
                     variables_printed.add(var_name)
 
-        print(f'[CALC] [=]×{len(variables_printed)} times')
+        print(f'[CALC] ([=])×{len(variables_printed)+1} times')
         print('Step 5: Take "an":\n[x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [CALC] [=] [<] [shift] [.] [shift] [.] [<] [<] [DEL] [v] [shift] [8] [v] [2] [6] [<] [<] [>] [9] [DEL] [<] [)] [+] [100 optional numbers]\n[CALC] [=]')
         print('Step 6: Take "@":\n[x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [CALC] [=] [<] [shift] [.]', end='')
         if len(variables_printed) == 1:
             print('[shift] [7] [4] [8]', end=' ')
             print('([<] [9] [DEL])×1\n[DEL]×10',end='')
-            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)]\n[CALC] [=]')
+            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)]\n[CALC] [=] [^]')
         elif len(variables_printed) == 2:
             print('[shift] [7] [4] [8] [shift] [7] [4] [9]', end=' ')
             print('([<] [9] [DEL])×2\n[DEL]×10',end='')
-            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "] [alpha] [∫] [>] [alpha] [CALC] [(-)]\n[CALC] ([=])×2')
+            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "] [alpha] [∫] [>] [alpha] [CALC] [(-)]\n[CALC] ([=])×2 [^]')
         elif len(variables_printed) == 3:
             print('[shift] [7] [4] [8] [shift] [7] [4] [9] [shift] [7] [1] [4]', end=' ')
             print('([<] [9] [DEL])×3\n[DEL]×10',end='')
-            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [x^-1] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "]\n[CALC] ([=])×3')
+            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [x^-1] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "]\n[CALC] ([=])×3 [^]')
         print('Step 7: Delete not needed bytes:')
         results = []
         for raw in filled_outputs:
