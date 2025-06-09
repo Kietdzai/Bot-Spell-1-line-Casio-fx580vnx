@@ -1,0 +1,53 @@
+Dấu cách (idk hex) : / : [shift] [8] [3] [4]
+41 : A : [Ans]
+42 : B : [alpha] [(-)]
+43 : C : [alpha] [□ '  "]
+44 : D : [alpha] [x^-1]
+45 : E : [alpha] [sin]
+46 : F : [alpha] [cos]
+47 : G : [alpha] [tan]
+48 : H : [x]
+49 : I : [alpha] [)]
+4A : J : [alpha] [Ans]
+4B : K : [alpha] [S<=>D]
+4C : L
+4D : M
+4E : N
+4F : O
+50 : P : [shift] [x]
+51 : Q : [∫]
+52 : R : [shift] [∫]
+53 : S : [alpha] [x]
+54 : T
+55 : U
+56 : V
+57 : W
+58 : X
+59 : Y
+5A : Z
+61 : a
+62 : b
+63 : c
+64 : d
+65 : e
+66 : f
+67 : g
+68 : h : [shift] [(]
+69 : i : [shift] [0]
+6A : j
+6B : k
+6C : l : [OPTN] [1] [1]
+6D : m : [OPTN] [1] [2]
+6E : n : [OPTN] [1] [3]
+6F : o : [OPTN] [1] [4]
+70 : p : [OPTN] [1] [5]
+71 : q : [OPTN] [1] [6]
+72 : r : [shift] [ln]
+73 : s : [shift] [log▪□]
+74 : t : [√]
+75 : u : [ln]
+76 : v : [shift] [√]
+77 : w : [sin]
+78 : x : [cos]
+79 : y : [tan]
+7A : z : [shift] [sin]
