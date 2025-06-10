@@ -235,15 +235,15 @@ def spell (line):
         if len(variables_printed) == 1:
             print('[shift] [7] [4] [8]', end=' ')
             print('([<] [9] [DEL])×1\n[DEL]×10',end='')
-            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)]\n[CALC] [=]')
+            print('[<] [9 số bất kì] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)]\n[CALC] [=]')
         elif len(variables_printed) == 2:
             print('[shift] [7] [4] [8] [shift] [7] [4] [9]', end=' ')
             print('([<] [9] [DEL])×2\n[DEL]×10',end='')
-            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "] [alpha] [∫] [>] [alpha] [CALC] [(-)]\n[CALC] ([=])×2')
+            print('[<] [9 số bất kì] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "] [alpha] [∫] [>] [alpha] [CALC] [(-)]\n[CALC] ([=])×2')
         elif len(variables_printed) == 3:
             print('[shift] [7] [4] [8] [shift] [7] [4] [9] [shift] [7] [1] [4]', end=' ')
             print('([<] [9] [DEL])×3\n[DEL]×10',end='')
-            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [x^-1] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "]\n[CALC] ([=])×3')
+            print('[<] [9 số bất kì] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [x^-1] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "]\n[CALC] ([=])×3')
         print('Bước 7: Xóa các byte không cần thiết:')
         results = []
         for raw in filled_outputs:
