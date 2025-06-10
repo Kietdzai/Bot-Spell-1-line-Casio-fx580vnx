@@ -1,3 +1,5 @@
+print("This program isn't supported special characters such as ! . , ; > < etc and numbers xD")
+print("Version 2.3")
 a = input("Input line you want to spell (English): ")
 
 def parse_line(raw_line):
@@ -117,8 +119,6 @@ def count_segments_around_20(template_result):
         return total, None
 
 def spell (line):
-    print("This program isn't supported special characters such as ! . , ; > < etc and numbers xD")
-    print("Version 2.3")
     char_list = []
     str = line.replace(" ", "/")
     charst = ['a','b','c','d','e','f','g','j','k','L','M','N','O','T','U','V','W','X','Y','Z']
@@ -265,7 +265,7 @@ def spell (line):
         for h in ds:
             if h == "/":
                 p+=1
-        print(f'[{p} optional numbers] [shift] [(] [>] [2] [x]')
+        print(f'[{17-p} optional numbers] [shift] [(] [>] [2] [x]')
         print('Final step: [CALC] [=]')
         f.close()
         file.close()
