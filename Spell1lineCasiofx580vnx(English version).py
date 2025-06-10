@@ -1,5 +1,6 @@
 print("This program isn't supported special characters such as ! . , ; > < etc and numbers xD")
-print("Version 2.3")
+print("Version 2.4")
+print("At distribute Hex for variables A B C parts may not work correctly. I'm sorry for that !")
 a = input("Input line you want to spell (English): ")
 
 def parse_line(raw_line):
@@ -125,6 +126,7 @@ def spell (line):
     char1=[]
     ds=list(str)
     hex_list=[]
+    found_keys={}
     if len(str) > 17:
         print("That line was over than 1 line (17 chars) ! ")
     else:
@@ -142,21 +144,32 @@ def spell (line):
                 print(f"        {a}", end='')
                 char_list.append(a)
 
-        with open("chars.txt", "r") as f:
-            lines = f.readlines()
-
-        for char in char_list:
-            found = False
+        with open("chars.txt", "r", encoding="utf-8") as file:
+            lines = file.readlines()
+            
+            # Phần đầu - lấy hex_list
+            for char in char_list:
+                found = False
+                for line in lines:
+                    line = line.strip()
+                    if line.endswith(f": {char}"):
+                        hex_code = line.split(" : ")[0]
+                        print(f"\n{char} = {hex_code}")
+                        found = True
+                        hex_list.append(hex_code)
+                        break
+                if not found:
+                    print(f"{char} : Can't found in file")
+            
+            # Phần hai - lấy found_keys
             for line in lines:
                 line = line.strip()
-                if line.endswith(f": {char}"):
-                    hex_code = line.split(" : ")[0]
-                    print(f"\n{char} = {hex_code}")
-                    found = True
-                    hex_list.append(hex_code)
-                    break
-            if not found:
-                print(f"{char} : Can't found in file")
+                if " : " in line:
+                    parts = line.split(" : ")
+                    if len(parts) == 3:
+                        hex_code, char, button = parts
+                        if char in ds:
+                            found_keys[char] = button
         c=len(ds)
         space =17-c
         if space % 2 == 0:
@@ -179,8 +192,8 @@ def spell (line):
         print("[v] means Down\n[<] means left\n[>] means right\n[^] means up")
         print('Step 1: Reset: \n [shift] [9] [3] [=] [=]')
         print('Step 2: Go to LineI/O: \n [shift] [menu] [1] [3]')
-        print('Step 3: Overflow: \n [x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [9] [9] [CALC] {[=] [AC]}-> fast [<] [del] [del] [CALC] [=] [<] [shift] [.]')
-        print('Step 4: Take needed chars \n ' + "".join(char1))
+        print('Step 3: Basic Overflow: \n [x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [9] [9] [CALC] {[=] [AC]}-> fast [<] [del] [del] [CALC] [=] [<] [shift] [.]')
+        print('Step 4: Take needed Hex chars \n ' + "".join(char1))
         with open('takechars.txt','r') as s:
             lines=s.readlines()
         for char in char1:
@@ -215,21 +228,21 @@ def spell (line):
                     var_name = line.split('=')[0].strip()
                     variables_printed.add(var_name)
 
-        print(f'[CALC] ([=])×{len(variables_printed)+1} times')
+        print(f'[CALC] [=]×{len(variables_printed)} times')
         print('Step 5: Take "an":\n[x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [CALC] [=] [<] [shift] [.] [shift] [.] [<] [<] [DEL] [v] [shift] [8] [v] [2] [6] [<] [<] [>] [9] [DEL] [<] [)] [+] [100 optional numbers]\n[CALC] [=]')
         print('Step 6: Take "@":\n[x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [CALC] [=] [<] [shift] [.]', end='')
         if len(variables_printed) == 1:
             print('[shift] [7] [4] [8]', end=' ')
             print('([<] [9] [DEL])×1\n[DEL]×10',end='')
-            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)]\n[CALC] [=] [^]')
+            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)]\n[CALC] [=]')
         elif len(variables_printed) == 2:
             print('[shift] [7] [4] [8] [shift] [7] [4] [9]', end=' ')
             print('([<] [9] [DEL])×2\n[DEL]×10',end='')
-            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "] [alpha] [∫] [>] [alpha] [CALC] [(-)]\n[CALC] ([=])×2 [^]')
+            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "] [alpha] [∫] [>] [alpha] [CALC] [(-)]\n[CALC] ([=])×2')
         elif len(variables_printed) == 3:
             print('[shift] [7] [4] [8] [shift] [7] [4] [9] [shift] [7] [1] [4]', end=' ')
             print('([<] [9] [DEL])×3\n[DEL]×10',end='')
-            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [x^-1] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "]\n[CALC] ([=])×3 [^]')
+            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [x^-1] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "]\n[CALC] ([=])×3')
         print('Step 7: Delete not needed bytes:')
         results = []
         for raw in filled_outputs:
@@ -240,20 +253,6 @@ def spell (line):
         for label, actions in reversed(results[:3]):
             for action in actions:
                 print(f"  {action}", end='')
-
-        found_keys={}
-
-        with open("chars.txt", "r", encoding="utf-8") as file:
-            lines = file.readlines()
-
-            for line in lines:
-                line = line.strip()
-                if " : " in line:
-                    parts = line.split(" : ")
-                    if len(parts) == 3:
-                        hex_code, char, button = parts
-                        if char in ds:
-                            found_keys[char] = button
 
         print('\nStep 8: Do like this')
         for char in ds:
@@ -267,8 +266,5 @@ def spell (line):
                 p+=1
         print(f'[{17-p} optional numbers] [shift] [(] [>] [2] [x]')
         print('Final step: [CALC] [=]')
-        f.close()
         file.close()
 spell(a)
-
-print("(Việt Nam) Tôi không hỗ trợ Tiếng Việt đâu, nhát. Ai biết thì sẽ biết, không thì thôi liu liu :3")
