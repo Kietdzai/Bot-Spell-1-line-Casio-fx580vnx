@@ -229,7 +229,7 @@ def spell (line):
                     var_name = line.split('=')[0].strip()
                     variables_printed.add(var_name)
 
-        print(f'[CALC] [=]×{len(variables_printed)} times')
+        print(f'[CALC] [=]×{len(variables_printed)+1} lần')
         print('Bước 5: Lấy "an":\n[x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [CALC] [=] [<] [shift] [.] [shift] [.] [<] [<] [DEL] [v] [shift] [8] [v] [2] [6] [<] [<] [>] [9] [DEL] [<] [)] [+] [100 số bất kì]\n[CALC] [=]')
         print('Bước 6: Lấy "@":\n[x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [CALC] [=] [<] [shift] [.]', end='')
         if len(variables_printed) == 1:
