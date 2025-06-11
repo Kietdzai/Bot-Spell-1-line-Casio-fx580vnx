@@ -228,7 +228,7 @@ def spell (line):
                     var_name = line.split('=')[0].strip()
                     variables_printed.add(var_name)
 
-        print(f'[CALC] [=]×{len(variables_printed)} times')
+        print(f'[CALC] [=]×{len(variables_printed)+1} times')
         print('Step 5: Take "an":\n[x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [CALC] [=] [<] [shift] [.] [shift] [.] [<] [<] [DEL] [v] [shift] [8] [v] [2] [6] [<] [<] [>] [9] [DEL] [<] [)] [+] [100 optional numbers]\n[CALC] [=]')
         print('Step 6: Take "@":\n[x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [CALC] [=] [<] [shift] [.]', end='')
         if len(variables_printed) == 1:
