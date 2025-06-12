@@ -259,7 +259,10 @@ def spell (line):
             if char in found_keys:
                 print(f"{found_keys[char]}", end=' ')
             else:
-                print(f"[>]", end=' ')
+                if char == "/":
+                    print("[shift] [8] [3] [4]", end=' ')  # Thay thế cho dấu cách
+                else:
+                    print(f"[>]", end=' ')
         p=0
         for h in ds:
             if h == "/":
