@@ -253,7 +253,7 @@ def spell (line):
         for label, actions in reversed(results[:3]):
             for action in actions:
                 print(f"  {action}", end='')
-
+        p=0
         print('\nStep 8: Do like this')
         for char in ds:
             if char in found_keys:
@@ -261,12 +261,9 @@ def spell (line):
             else:
                 if char == "/":
                     print("[shift] [8] [3] [4]", end=' ')  # Thay thế cho dấu cách
+                    p+=1
                 else:
                     print(f"[>]", end=' ')
-        p=0
-        for h in ds:
-            if h == "/":
-                p+=1
         print(f'[{17-p} optional numbers] [shift] [(] [>] [2] [x]')
         print('Final step: [CALC] [=]')
         file.close()
