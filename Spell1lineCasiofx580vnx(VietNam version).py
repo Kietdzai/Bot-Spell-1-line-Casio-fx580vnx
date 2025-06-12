@@ -229,21 +229,21 @@ def spell (line):
                     var_name = line.split('=')[0].strip()
                     variables_printed.add(var_name)
 
-        print(f'[CALC] [=]×{len(variables_printed)+1} times')
+        print(f'[CALC] ([=])×{len(variables_printed)+1} lần')
         print('Bước 5: Lấy "an":\n[x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [CALC] [=] [<] [shift] [.] [shift] [.] [<] [<] [DEL] [v] [shift] [8] [v] [2] [6] [<] [<] [>] [9] [DEL] [<] [)] [+] [100 số bất kì]\n[CALC] [=]')
         print('Bước 6: Lấy "@":\n[x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [CALC] [=] [<] [shift] [.]', end='')
         if len(variables_printed) == 1:
             print('[shift] [7] [4] [8]', end=' ')
             print('([<] [9] [DEL])×1\n[DEL]×10',end='')
-            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)]\n[CALC] ([=])×2 [^]')
+            print('[<] [9 số bất kì] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)]\n[CALC] ([=])×2 [^]')
         elif len(variables_printed) == 2:
             print('[shift] [7] [4] [8] [shift] [7] [4] [9]', end=' ')
             print('([<] [9] [DEL])×2\n[DEL]×10',end='')
-            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "]\n[CALC] ([=])×3 [^]')
+            print('[<] [9 số bất kì] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "]\n[CALC] ([=])×3 [^]')
         elif len(variables_printed) == 3:
             print('[shift] [7] [4] [8] [shift] [7] [4] [9] [shift] [7] [1] [4]', end=' ')
             print('([<] [9] [DEL])×3\n[DEL]×10',end='')
-            print('[<] [9 optional numbers] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "] [alpha] [∫] [>] [alpha] [CALC] [alpha] [x^-1]\n[CALC] ([=])×4 [^]')
+            print('[<] [9 số bất kì] [>] [alpha] [∫] [>] [alpha] [CALC] [alpha] [(-)] [alpha] [∫] [>] [alpha] [CALC] [alpha] [□ \' "] [alpha] [∫] [>] [alpha] [CALC] [alpha] [x^-1]\n[CALC] ([=])×4 [^]')
         print('Bước 7: Xóa các byte không cần thiết:')
         results = []
         for raw in filled_outputs:
