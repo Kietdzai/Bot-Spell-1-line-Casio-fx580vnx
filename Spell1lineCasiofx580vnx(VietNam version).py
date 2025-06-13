@@ -192,7 +192,7 @@ def spell (line):
         print("[v] có nghĩa là nhấn xuống\n[<] có nghĩa là nhấn sang trái\n[>] có nghĩa là nhấn sang phải\n[^] có nghĩa là nhấn lên")
         print('Bước 1: Reset máy: \n [shift] [9] [3] [=] [=]')
         print('Bước 2: Vào LineI/O: \n [shift] [menu] [1] [3]')
-        print('Bước 3: Vào Basic Overflow: \n [x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [9] [9] [CALC] {[=] [AC]}-> fast [<] [del] [del] [CALC] [=] [<] [shift] [.]')
+        print('Bước 3: Vào Basic Overflow: \n [x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [9] [9] [CALC] {[=] [AC]}-> nhấn nhanh [<] [del] [del] [CALC] [=] [<] [shift] [.]')
         print('Bước 4: Lấy các kí tự Hex cần thiết: \n ' + "".join(char1))
         with open('takechars.txt','r') as s:
             lines=s.readlines()
