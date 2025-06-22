@@ -331,7 +331,7 @@ if a == 'inj':
                             file.write(f'(20)×17 [Nhét 00 vào cho đến khi đủ 3 dòng nhỏ]\n')
     with open("output.txt", "r", encoding="utf-8") as file:
         lines=file.read()
-        print("Inject code sau vào addr EA30(Vào bằng QuickCPY++, bản sau tôi sẽ hướng dẫn cách vào QuickCPY++)")
+        print("Inject code sau vào addr EA30(Vào bằng QuickCPY++)")
         print(lines)
     file.close()
     with open("output.txt", "w") as f:
