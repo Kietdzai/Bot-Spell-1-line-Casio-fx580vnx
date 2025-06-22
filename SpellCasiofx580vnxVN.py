@@ -154,8 +154,9 @@ def spell_var (line):
                 found = False
                 for line in lines:
                     line = line.strip()
-                    if line.endswith(f": {char}"):
-                        hex_code = line.split(" : ")[0]
+                    parts=line.split(" : ")
+                    if  len(parts) >= 2 and parts[1] == char:
+                        hex_code = parts[0]
                         print(f"\n{char} = {hex_code}")
                         found = True
                         hex_list.append(hex_code)
