@@ -330,7 +330,7 @@ if a == 'inj':
                             file.write(f'(20)×17 [Fit 00 until full 3 small lines in Casio]\n')
     with open("output.txt", "r", encoding="utf-8") as file:
         lines=file.read()
-        print("Inject this code to address EA30 (Go to by QuickCPY++, at after version I will tutorial):")
+        print("Inject this code to address EA30 (Go to by QuickCPY++):")
         print(lines)
     file.close()
     with open("output.txt", "w") as f:
