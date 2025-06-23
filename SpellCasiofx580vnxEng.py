@@ -1,7 +1,8 @@
-print("Program spell for Casio fx580vnx. Version 3.0")
+print("Program spell for Casio fx580vnx. Version 3.0.1")
 print("This program isn't supported special characters like ! , . ; > < v.v (Basically, I'm just too scared to do it)")
 print("The hex splitting might be buggy, I'm so sorry ! However you can spell by Inject method.")
 import string
+import random
 
 def parse_line(raw_line):
     label, data = raw_line.split('=')
@@ -127,22 +128,25 @@ def spell_var (line):
     hex_list=[]
     found_keys={}
     if len(line) > 17:
-        print("Câu bạn vừa nhập quá 1 dòng (17 kí tự) ! ")
+        print("That line was over 17 char (1 line) ! ")
     else:
         print("Ok")
-        print("Các kí tự cần: ")
+        print("Chars needed: ")
         for i in line:
             if i == " ":
                 print("    Space", end=' ')
             else:
                 print(f"    {i}", end=' ')
-
-        print("\nCác kí tự không thể viết trên bàn phím: ")
+        j=list(string.ascii_letters)
+        j.append("!")
+        j.append('"')
+        j.append('#')
+        print("\nChars can't write by keyboard: ")
         for a in line:
             if a in charst:
                 print(f"        {a}", end='')
                 char_list.append(a)
-            if a not in list(string.ascii_letters):
+            if a not in j:
                 print(f"        {a}", end='')
                 char_list.append(a)
 
@@ -154,8 +158,8 @@ def spell_var (line):
                 found = False
                 for line in lines:
                     line = line.strip()
-                    if  len(parts) >= 2 and parts[1] == char:
-                        hex_code = parts[0]
+                    if line.endswith(f": {char}"):
+                        hex_code = line.split(" : ")[0]
                         print(f"\n{char} = {hex_code}")
                         found = True
                         hex_list.append(hex_code)
@@ -270,68 +274,158 @@ def spell_var (line):
         print('Final step: [CALC] [=]')
         file.close()
         print("Dev: AxesMC")
-def spell_inj(linecasio):
-    char_list = list(linecasio)
-    hex_list = []
-    with open('chars.txt', 'r', encoding='utf-8') as file:
-        lines = file.readlines()
-        for char in char_list:
-            found = False
-            for line in lines:
-                line = line.strip()
-                parts = line.split(' : ')
-                if len(parts) >= 2 and parts[1] == char:
-                    hex_code = parts[0]
-                    hex_list.append(hex_code)
-                    found = True
-                    break
-    with open('output.txt', 'a', encoding="utf-8") as f:
-        for i in range(0, len(hex_list), 16):
-            group = hex_list[i:i+16]  # Lấy 16 phần tử mỗi times
-            f.write(' '.join(group) + '\n')  # Ghi dòng và xuống dòng
-        f.write('[Fit 00 until full 3 small lines in Casio] \n')
+def spell_inj_4_ol(b):
+    for i in range(b):
+        a = input(f"Enter the sentence you want to spell on line {i+1} on the Casio (supports both Vietnamese and English). Some special characters such as , : > < = ? are also supported.\n")
+        g=list(a)
+        if len(g)>17:
+            raise Exception("That line was over 17 chars ~ 1 line !")
+        space=17-len(g)
+        if space % 2==0:
+            c=space//2
+            g=[' ' for _ in range(c)] + g + [' ' for _ in range(c)]
+        elif space%2==1:
+            c=(space-1)//2
+            d=c+1
+            g=[' ' for _ in range(c)] + g + [' ' for _ in range(d)]
+        char_list = g
+        hex_list = []
+        with open("chars.txt", "r", encoding="utf-8") as file:
+            lines = file.readlines()
+            for char in char_list:
+                found = False
+                for line in lines:
+                    line = line.strip()
+                    parts = line.split(" : ")
+                    if len(parts) >= 2 and parts[1] == char:
+                        hex_code = parts[0]
+                        hex_list.append(hex_code)
+                        found = True
+                        break
+                if not found:
+                    if char == " ":
+                        hex_list.append("20")
+                    else:
+                        print(f"Oops! Can't find {char} in chars.txt \n Submit it on GitHub and I'll add it—just make sure it's a valid Casio character!")
+        true_byte = []
+        for item in hex_list:
+            true_byte.extend(item.strip().split()) #Đẩy mấy phần tử 2 byte ra khỏi nhau (chia tay hehe)
+        # Đảm bảo đủ 48 byte đầu tiên (3 dòng đầu × 16 bytes)
+        while len(true_byte) < 48:
+            true_byte.append("00")
+        with open("output.txt", "a", encoding="utf-8") as f:
+            for i in range(0, 48, 16):
+                group = true_byte[i:i+16]
+                f.write(' '.join(group) + '\n')
+            f.write('[menu] [3]\n')
+            for i in range(48, len(true_byte), 16):
+                group = true_byte[i:i+16]
+                f.write(' '.join(group) + '\n')
+    with open("output.txt", "r", encoding="utf-8") as f:
+        print("Inject these code to started addr is EA30 (how to inject : go to QuickCPY++, at version 3.0.2 I'll tutorial :) wait for me)\n")
+        print(''.join(f.readlines()))
+        for i in range(4-e):
+            print("20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20\n20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00")
+            print("[menu] [3]")
+def spell_inj_8_ol(b):
+    all_hex = []
+    m=list(string.ascii_letters)
+    m.append(" ")
+    m.append(",")
+    m.append("0")
+    m.append("1")
+    m.append("2")
+    m.append("3")
+    m.append("4")
+    m.append("5")
+    m.append("6")
+    m.append("7")
+    m.append("8")
+    m.append("9")
+    m.append("'")
+    m.append('"')
+    for i in range(b):
+        a = input(f"Enter the sentence you want to spell at line {i+1} on the Casio (only supported English). Some special characters such as , : > < = ? are also supported. \n")
+        for z in a:
+            if z not in m:
+                raise Exception("The line you entered contains special characters!")
+        if len(a)>32:
+            raise Exception("The line you entered was over 32 char ~ 1 small line !")
+        char_list = list(a)
+        space = 32 - len(char_list)
+        if space % 2 == 0:
+            c = space // 2
+            char_list = [' ' for _ in range(c)] + char_list + [' ' for _ in range(c)]
+        else:
+            c = (space - 1) // 2
+            d = c + 1
+            char_list = [' ' for _ in range(c)] + char_list + [' ' for _ in range(d)]
 
-a = input("How do you want to spell on the Casio fx-580VN X? Using variables A, B, C or using the Inject method?\n Type 'var' to spell using variables A, B, C\n Type 'inj' to spell using the Inject method.\n")
+        with open("chars.txt", "r", encoding="utf-8") as file:
+            lines = file.readlines()
+            for char in char_list:
+                found = False
+                for line in lines:
+                    line = line.strip()
+                    parts = line.split(" : ")
+                    if len(parts) >= 2 and parts[1] == char:
+                        hex_code = parts[0]
+                        all_hex.append(hex_code)
+                        found = True
+                        break
+                if not found:
+                    if char == " ":
+                        all_hex.append("20")
+                    else:
+                        print(f"Oops! Can't find {char} in chars.txt \n Submit it on GitHub and I'll add it—just make sure it's a valid Casio character!")
+    for z in range(8-e):
+        for a in range(32):
+            all_hex.append("20")
+    with open("output.txt", "a", encoding="utf-8") as f:
+        f.write("34 7b 31 30 08 01 a0 ea cc 3d 32 30 7e 94 30 30\n")
+        f.write("34 7b 31 30 08 09 c0 ea cc 3d 32 30 7e 94 30 30\n")
+        f.write("34 7b 31 30 08 11 e0 ea cc 3d 32 30 7e 94 30 30\n")
+        f.write("34 7b 31 30 08 19 00 eb cc 3d 32 30 7e 94 30 30\n")
+        f.write("34 7b 31 30 08 21 20 eb cc 3d 32 30 7e 94 30 30\n")
+        f.write("34 7b 31 30 08 29 40 eb cc 3d 32 30 7e 94 30 30\n")
+        f.write("[menu] [3]\n")
+        f.write("34 7b 31 30 08 31 60 eb cc 3d 32 30 7e 94 30 30\n")
+        f.write("34 7b 31 30 08 39 80 eb cc 3d 32 30 7e 94 30 30\n")
+        f.write("34 7b 31 30 0a f0 73 00 d2 03 32 30 34 7b 31 30\n")
+        f.write("10 f0 00 00 d2 03 32 30 34 7b 31 30 30 d6 84 d1\n")
+        f.write("c8 03 32 30 78 5c 31 30 2e d6 60 0d 32 30 00 00\n")
+        f.write("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n")
+        f.write("[menu] [3]\n")
+        i = 0
+        while i < len(all_hex):
+            group_of_96 = all_hex[i:i + 96]
+            while len(group_of_96) < 96:
+                group_of_96.append("00")
+            for j in range(0, 96, 16):
+                line = group_of_96[j:j + 16]
+                f.write(' '.join(line) + '\n')
+            f.write('[menu] [3]\n')
+            i += 96
+    with open("output.txt", "r", encoding="utf-8") as f:
+        print("Inject these code to started addr is EA30 (how to inject : go to QuickCPYMax, at version 3.0.2 I'll tutorial :) wait for me)")
+        print(f.read())
+
+a = input("Choose your spelling method for Casio fx-580VN X: \n Type 'var' to use variables A, B, C \nType 'inj' to inject (for advanced users with QuickCPYMax or QuickCPY++ skills)\n")
 
 if a == 'var':
-    b=input("Input line do you want to spell (English or France): ")
+    b=input("Enter the sentence you want to spell (English or France supported): ")
     spell_var(b)
 if a == 'inj':
-    e=int(input("How many lines do you want to spell on the Casio fx-580VN X using the Inject method ?\n"))
-    u=[]
-
-    if e>4:
-        print(f"Over lines in Casio :v")
-    else:
-        for i in range(e):
-            a = input(f"Input line do you want to spell at line {i+1}, not supported for special characters like , ; * > < etc\n")
-            u.append(a)
-            b=list(a)
-            if len(a) > 17:
-                print('That line was over 17 chars !')
-            space=17-len(b)
-            if space % 2==0:
-                c=space//2
-                b=[' ' for _ in range(c)] + b
-                b=b + [' ' for _ in range(c)]
-            elif space%2==1:
-                c=(space-1)//2
-                d=c+1
-                b=[' ' for _ in range(c)] + b
-                b=b+[' ' for _ in range(d)]
-            h=''.join(b)
-            print(h)
-            spell_inj(h)
-            if e<4:
-                if len(u)==e:
-                    g=17*(4-e)
-                    with open('output.txt', 'a', encoding="utf-8") as file:
-                        for i in range(4-e):
-                            file.write(f'(20)×17 [Fit 00 until full 3 small lines in Casio]\n')
-    with open("output.txt", "r", encoding="utf-8") as file:
-        lines=file.read()
-        print("Inject this code to address EA30 (Go to by QuickCPY++):")
-        print(lines)
-    file.close()
-    with open("output.txt", "w") as f:
+    with open("output.txt", "w", encoding='utf-8') as e:
         pass
+    e=int(input("How many lines do you want to spell on the Casio fx-580VN X using the Inject method?\n"))
+    if e<=4:
+        spell_inj_4_ol(e)
+        print("Launcher ? At version 3.0.2 I'll tutorial !")
+    elif e<=8 and e>4:
+        spell_inj_8_ol(e)
+        print("Launcher ? At version 3.0.2 I'll tutorial !")
+    elif e>8:
+        print("That's more than the Casio can handle! :v")
+if random.randint(1,80) == 1:
+    print("Good luck spelling!")
