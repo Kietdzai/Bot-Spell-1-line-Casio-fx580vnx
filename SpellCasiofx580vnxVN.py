@@ -1,7 +1,7 @@
-print("Chương trình hỗ trợ Spell Casio fx580vnx. Phiên bản 3.0")
-print("Chương trình này không hỗ trợ spell các kí tự đặc biệt như ! , . ; > < v.v (Căn bản là nhát làm)")
+print("Chương trình hỗ trợ Spell Casio fx580vnx. Phiên bản 3.0.5")
 print("Phần chia Hex có thể bị lỗi, thông cảm cho tôi nhé")
 import string
+import random
 
 def parse_line(raw_line):
     label, data = raw_line.split('=')
@@ -138,11 +138,15 @@ def spell_var (line):
                 print(f"    {i}", end=' ')
 
         print("\nCác kí tự không thể viết trên bàn phím: ")
+        j=list(string.ascii_letters)
+        j.append("!")
+        j.append('"')
+        j.append('#')
         for a in line:
             if a in charst:
                 print(f"        {a}", end='')
                 char_list.append(a)
-            if a not in list(string.ascii_letters):
+            if a not in j:
                 print(f"        {a}", end='')
                 char_list.append(a)
 
@@ -154,15 +158,15 @@ def spell_var (line):
                 found = False
                 for line in lines:
                     line = line.strip()
-                    parts=line.split(" : ")
-                    if  len(parts) >= 2 and parts[1] == char:
+                    parts = line.split(" : ")
+                    if len(parts) >= 2 and parts[1] == char:
                         hex_code = parts[0]
                         print(f"\n{char} = {hex_code}")
                         found = True
                         hex_list.append(hex_code)
                         break
                 if not found:
-                    print(f"{char} : Can't found in file. Hmm bạn cứ coi như không có gì đi hẹ hẹ :)")
+                    print(f"{char} : Can't found in file (Hmm bạn cứ coi như không có gì đi. Tính năng đấy)")
             
             # Phần hai - lấy found_keys
             for line in lines:
@@ -197,7 +201,7 @@ def spell_var (line):
         print('Bước 2: Vào LineI/O: \n [shift] [menu] [1] [3]')
         print('Bước 3: Vào Basic Overflow: \n [x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [9] [9] [CALC] {[=] [AC]}-> nhấn nhanh [<] [del] [del] [CALC] [=] [<] [shift] [.]')
         print('Bước 4: Lấy các kí tự Hex cần thiết: \n ' + "".join(char1))
-        with open('takechars.txt','r') as s:
+        with open('takechars.txt','r', encoding='utf-8') as s:
             lines=s.readlines()
         for char in char1:
             found=False
@@ -219,8 +223,8 @@ def spell_var (line):
         print("x:")
         for label, template in zip(['A', 'B', 'C'], [template_A, template_B, template_C]):
             result, hex_index, done, byte_count = fill_template(template, hex_list, hex_index)
-            filled_outputs.append(f"{label} = {' '.join(result)}")
-            if done: #Số đẹp hẹ hẹ
+            filled_outputs.append(f"{label} = {' '.join(result)}")#Số đẹp hẹ hẹ
+            if done: 
                 break
         for line in filled_outputs:
             print(line + ':')
@@ -265,74 +269,164 @@ def spell_var (line):
                 if char == " ":
                     print("[shift] [8] [3] [4]", end=' ')  # Thay thế cho dấu cách
                     p+=1
+                elif p not in j:
+                    p+=1
                 else:
                     print(f"[>]", end=' ')
         print(f'[{17-p} số bất kì] [shift] [(] [>] [2] [x]')
         print('Bước cuối: [CALC] [=]')
         file.close()
         print("Dev: AxesMC")
-def spell_inj(linecasio):
-    char_list = list(linecasio)
-    hex_list = []
-    with open('chars.txt', 'r', encoding='utf-8') as file:
-        lines = file.readlines()
-        for char in char_list:
-            found = False
-            for line in lines:
-                line = line.strip()
-                parts = line.split(' : ')
-                if len(parts) >= 2 and parts[1] == char:
-                    hex_code = parts[0]
-                    hex_list.append(hex_code)
-                    found = True
-                    break
-    with open('output.txt', 'a', encoding="utf-8") as f:
-        for i in range(0, len(hex_list), 16):
-            group = hex_list[i:i+16]  # Lấy 16 phần tử mỗi lần
-            f.write(' '.join(group) + '\n')  # Ghi dòng và xuống dòng
-        f.write('[Nhét 00 vào cho đến khi đủ 3 dòng nhỏ] \n')
+def spell_inj_4_ol(b):
+    for i in range(b):
+        a = input(f"Bạn muốn spell câu gì ở dòng số {i+1} trên Casio (Tiếng Việt hoặc Tiếng Anh). Hỗ trợ một vài kí tự đặc biệt như , : > < = ?\n")
+        g=list(a)
+        if len(g)>17:
+            raise Exception("Dòng bạn vừa nhập quá 17 kí tự ~ 1 line !")
+        space=17-len(g)
+        if space % 2==0:
+            c=space//2
+            g=[' ' for _ in range(c)] + g + [' ' for _ in range(c)]
+        elif space%2==1:
+            c=(space-1)//2
+            d=c+1
+            g=[' ' for _ in range(c)] + g + [' ' for _ in range(d)]
+        char_list = g
+        hex_list = []
+        with open("chars.txt", "r", encoding="utf-8") as file:
+            lines = file.readlines()
+            for char in char_list:
+                found = False
+                for line in lines:
+                    line = line.strip()
+                    parts = line.split(" : ")
+                    if len(parts) >= 2 and parts[1] == char:
+                        hex_code = parts[0]
+                        hex_list.append(hex_code)
+                        found = True
+                        break
+                if not found:
+                    if char == " ":
+                        hex_list.append("20")
+                    else:
+                        print(f"Không tìm thấy {char} trong chars.txt\n Báo thiếu kí tự lên github.com đi rồi tui sẽ thêm vào cho (Phải có trong chars của Casio đấy nhé !)")
+        true_byte = []
+        for item in hex_list:
+            true_byte.extend(item.strip().split()) #Đẩy mấy phần tử 2 byte ra khỏi nhau (chia tay hehe)
+        # Đảm bảo đủ 48 byte đầu tiên (3 dòng đầu × 16 bytes)
+        while len(true_byte) < 48:
+            true_byte.append("00")
+        with open("output.txt", "a", encoding="utf-8") as f:
+            for i in range(0, 48, 16):
+                group = true_byte[i:i+16]
+                f.write(' '.join(group) + '\n')
+            f.write('[menu] [3]\n')
+            for i in range(48, len(true_byte), 16):
+                group = true_byte[i:i+16]
+                f.write(' '.join(group) + '\n')
+    with open("output.txt", "r", encoding="utf-8") as f:
+        print("Inject các đoạn code sau vào EA30 (Vào bằng QuickCPY++)\n")
+        print(''.join(f.readlines()))
+        for i in range(4-e):
+            print("20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20\n20 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00")
+            print("[menu] [3]")
+def spell_inj_8_ol(b):
+    all_hex = []
+    m=list(string.ascii_letters)
+    m.append(" ")
+    m.append(",")
+    m.append("0")
+    m.append("1")
+    m.append("2")
+    m.append("3")
+    m.append("4")
+    m.append("5")
+    m.append("6")
+    m.append("7")
+    m.append("8")
+    m.append("9")
+    m.append("'")
+    m.append('"')
+    for i in range(b):
+        a = input(f"Bạn muốn spell câu gì ở dòng {i+1} trên Casio (Tiếng Anh) ?\n")
+        for z in a:
+            if z not in m:
+                raise Exception("Dòng bạn nhập có kí tự đặc biệt !")
+        if len(a)>32:
+            raise Exception("Dòng bạn mới nhập quá 32 kí tự ~ 1 dòng !")
+        char_list = list(a)
+        space = 32 - len(char_list)
+        if space % 2 == 0:
+            c = space // 2
+            char_list = [' ' for _ in range(c)] + char_list + [' ' for _ in range(c)]
+        else:
+            c = (space - 1) // 2
+            d = c + 1
+            char_list = [' ' for _ in range(c)] + char_list + [' ' for _ in range(d)]
 
-a = input("Bạn muốn spell trên Casio fx580vnx kiểu gì ? Spell bằng các biến A, B, C hay bằng Inject \n Nhập 'var' để spell theo kiểu biến A, B, C \n Nhập 'inj' để spell bằng cách Inject \n")
+        with open("chars.txt", "r", encoding="utf-8") as file:
+            lines = file.readlines()
+            for char in char_list:
+                found = False
+                for line in lines:
+                    line = line.strip()
+                    parts = line.split(" : ")
+                    if len(parts) >= 2 and parts[1] == char:
+                        hex_code = parts[0]
+                        all_hex.append(hex_code)
+                        found = True
+                        break
+                if not found:
+                    if char == " ":
+                        all_hex.append("20")
+                    else:
+                        print(f"Không tìm thấy {char} trong chars.txt\n Báo thiếu kí tự lên github.com đi rồi tui sẽ thêm vào cho (Phải có trong chars của Casio đấy nhé !)")
+    for z in range(8-e):
+        for a in range(32):
+            all_hex.append("20")
+    with open("output.txt", "a", encoding="utf-8") as f:
+        f.write("34 7b 31 30 08 01 a0 ea cc 3d 32 30 7e 94 30 30\n")
+        f.write("34 7b 31 30 08 09 c0 ea cc 3d 32 30 7e 94 30 30\n")
+        f.write("34 7b 31 30 08 11 e0 ea cc 3d 32 30 7e 94 30 30\n")
+        f.write("34 7b 31 30 08 19 00 eb cc 3d 32 30 7e 94 30 30\n")
+        f.write("34 7b 31 30 08 21 20 eb cc 3d 32 30 7e 94 30 30\n")
+        f.write("34 7b 31 30 08 29 40 eb cc 3d 32 30 7e 94 30 30\n")
+        f.write("[menu] [3]\n")
+        f.write("34 7b 31 30 08 31 60 eb cc 3d 32 30 7e 94 30 30\n")
+        f.write("34 7b 31 30 08 39 80 eb cc 3d 32 30 7e 94 30 30\n")
+        f.write("34 7b 31 30 0a f0 73 00 d2 03 32 30 34 7b 31 30\n")
+        f.write("10 f0 00 00 d2 03 32 30 34 7b 31 30 30 d6 84 d1\n")
+        f.write("c8 03 32 30 78 5c 31 30 2e d6 60 0d 32 30 00 00\n")
+        f.write("00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n")
+        f.write("[menu] [3]\n")
+        i = 0
+        while i < len(all_hex):
+            group_of_96 = all_hex[i:i + 96]
+            while len(group_of_96) < 96:
+                group_of_96.append("00")
+            for j in range(0, 96, 16):
+                line = group_of_96[j:j + 16]
+                f.write(' '.join(line) + '\n')
+            f.write('[menu] [3]\n')
+            i += 96
+    with open("output.txt", "r", encoding="utf-8") as f:
+        print("Inject đoạn các đoạn code sau vào E9E0 (Vào bằng QuickCPYMax)")
+        print(f.read())
+
+a = input("Bạn muốn spell trên Casio fx580vnx kiểu gì ? Spell bằng các biến A, B, C hay bằng Inject \n Nhập 'var' để spell theo kiểu biến A, B, C \n Nhập 'inj' để spell bằng cách Inject (cho mấy ông thực sự biết làm QuickCPY++) \n")
 
 if a == 'var':
     b=input("Nhập câu bạn muốn spell (Tiếng Anh hoặc Tiếng Việt): ")
     spell_var(b)
 if a == 'inj':
-    e=int(input("Bạn muốn spell mấy dòng trên Casio fx580vnx bằng phương pháp Inject ?\n"))
-    u=[]
-
-    if e>8:
-        print(f"Quá số dòng trên Casio rồi :v")
-    else:
-        for i in range(e):
-            a = input(f"Nhập câu bạn muốn spell tại dòng {i+1}, không hỗ trợ các kí tự đặc biệt như , ; * > < v.v\n")
-            u.append(a)
-            b=list(a)
-            if len(a) > 17:
-                print('Dòng mà bạn mới nhập quá 17 kí tự !')
-            space=17-len(b)
-            if space % 2==0:
-                c=space//2
-                b=[' ' for _ in range(c)] + b
-                b=b + [' ' for _ in range(c)]
-            elif space%2==1:
-                c=(space-1)//2
-                d=c+1
-                b=[' ' for _ in range(c)] + b
-                b=b+[' ' for _ in range(d)]
-            h=''.join(b)
-            print(h)
-            spell_inj(h)
-            if e<4:
-                if len(u)==e:
-                    g=17*(4-e)
-                    with open('output.txt', 'a', encoding="utf-8") as file:
-                        for i in range(4-e):
-                            file.write(f'(20)×17 [Nhét 00 vào cho đến khi đủ 3 dòng nhỏ]\n')
-    with open("output.txt", "r", encoding="utf-8") as file:
-        lines=file.read()
-        print("Inject code sau vào addr EA30(Vào bằng QuickCPY++)")
-        print(lines)
-    file.close()
-    with open("output.txt", "w") as f:
+    with open("output.txt", "w", encoding='utf-8') as e:
         pass
+    e=int(input("Bạn muốn spell mấy dòng trên Casio fx580vnx bằng phương pháp Inject ?\n"))
+    if e<=4:
+        spell_inj_4_ol(e)
+    elif e<=8 and e>4:
+        spell_inj_8_ol(e)
+    elif e>8:
+        print("Số dòng quá trên Casio rồi :v")
+if random.randint(1,80) == 1:
+    print("Chúc bạn spell thành công !")
