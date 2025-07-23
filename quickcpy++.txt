@@ -1,0 +1,130 @@
+-----
+QuickCPY++
+Cho mấy ông newbie:
+Bước 1. Reset máy:
+[shift] [9] [3] [=] [=]
+Bước 2. Vào LineI/O:
+[shift] [menu] [1] [3]
+Bước 3. Vào 124an:
+[x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [CALC] [=] [<] [shift] [.] [shift] [.] [<]
+[<] [DEL] [v] [shift] [8] [v] [2] [6] [<] [<] [>] [9] [DEL] [<] [)] [+] [100 số bất kì] [+] [13 số bất kì]
+[CALC] [=]
+Bước 4. Vào font nhỏ:
+[48 số bất kì] [shift] [cos] [shift] [x⁻¹] [2] [0] [=] [AC]
+Bước 5.
+Nếu chỗ nào có (#) thì làm như sau:
+[48 số bất kì] [OPTN] [2] [2] [shift] [cos] [1] [0] [>] [shift] [x⁻¹] [phân số] [>] [0] [0] [>] [x²] [phân số]
+[OPTN] [3] [3] [0] [0] [⎷] [>] [2] [0] [0] [0] [3] [alpha] [∫]
+Nếu chỗ nào có (+) thì làm như sau:
+[x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [CALC] [=] [<] [shift] [.]
+Dòng 1:
+Làm (+)
+Bạn lấy các kí tự ADAFDAC như sau:
+[shift] [7] [3] [7]
+[shift] [7] [3] [(-)]
+[shift] [7] [3] [7]
+[shift] [7] [3] [x⁻¹]
+[shift] [7] [3] [(-)]
+[shift] [7] [3] [7]
+[shift] [7] [3] [9]
+([<] [9] [DEL])×7 [DEL]×10
+Tiếp theo, bạn làm y hệt như sau:
+[<] [1] [2] [3] [4] [5] [6] [7] [8] [>] [alpha] [∫]
+[alpha] [(-)] [alpha] [CALC] [1] [0] [.] [0] [0] [0] [>] [0] [>] [1] [>] [2] [1] [>] [0] [1] [alpha] [∫]
+[alpha] [□ ' "] [alpha] [CALC] [1] [0] [.] [1] [0] [2] [8] [0] [>] [1] [>] [9] [0] [2] [0]
+[CALC] ([=])×3
+Sau đó, bạn lấy các kí tự CCED như sau:
+[shift] [7] [3] [9]
+[shift] [7] [3] [9]
+[shift] [7] [3] [□ ' "]
+[shift] [7] [3] [(-)]
+([<] [9] [DEL])×4 [DEL]×10
+Làm y hệt như sau:
+[<] [1] [2] [3] [4] [5] [6] [7] [8] [>] [alpha] [∫]
+[alpha] [x⁻¹] [alpha] [CALC] [1] [0] [2] [>] [>] [3] [>] [9] [>] [2] [3]
+[CALC] ([=])×2
+Cuối dòng 1, làm như sau:
+
+Cho mấy ông hiểu rõ về Casio:
+Bước 1: Reset máy
+Bước 2: Vào 124an
+Bước 3: Nhập Hackstring sau:
+<48 bytes> ʳ cos⁻¹ ( ! 2 0
+[=] [AC]
+Bước 5: Nếu chỗ nào có (*) thì làm dạng chung sau:
+<48 bytes> ʳ cos⁻¹( 10 <???>!⌟ ▸t 00 xnor² ⌟n 00 ⎷(@20003:
+(Nếu cái nào có rồi thì [>])
+Line 1:
+Gán hex:
+A = 1 0.0 00 A0 D1 A2 1F 01
+B = 1 0.1 02 80 D1 90 20 AC
+C = 1 02 CC 3E 9D 23
+Xóa byte:
+[<]x5 [DEL]x3 [<] [DEL] [<]x5 [DEL]x3 [<]x5
+Làm (*) sau đó làm strcpy sau:
+00 ▧ 00 ▧ 0 @ . ° @ ▸t ImP( ∠ 0 0 0 0 @ ln( 1 0 @ ! 0 0 𝐄 @ 0 0 0
+Những cái ▧ có rồi nên bạn cứ [>] nhé !
+Làm xong rồi nhấn [=] [AC]
+
+Line 2:
+Gán hex:
+A = 1 0.0 00 C0 D1 A2 1F A0
+B = 1 9.C 16 EA 80 0E 20 9F
+C = 1 BC 23
+Xóa byte:
+[<]x2 [DEL]x3 [<] [DEL] [<]x5 [DEL]x3 [<]x5
+Làm (*) sau đó làm strcpy sau:
+or @ 0 0 0 0 - 0 6 @ 2 0 0 @ @ @ 10 RanInt#( ° 0 0 0 0 × @ 0 0 @ tanh( 1 0
+Làm xong rồi nhấn [=] [AC]
+
+Line 3:
+Gán hex:
+A = 1 0.0 00 E0 D1 A2 1F 62
+B = 1 F.A EF 5A D2 03 62 A0
+C = 1 EF A0 BF A0 EF 23
+Xóa byte:
+[<]x6 [DEL]x3 [<]x7 [DEL]x3 [<]x5
+Làm (*) sau đó làm strcpy sau:
+0 0 . Q( 1 0 efRanIn Mean( 0 ▸a+b𝒊 @ 2 0 . Q( 1 0 or @ or ! 𝐩 @ or @
+𝐩 là [OPTN] [3] [4]
+Làm xong rồi nhấn [=] [AC]
+
+Line 4 (Launcher):
+Gán hex:
+A = 1 0.0 00 62 11 D1 02 D2
+B = 1 0.3 62 A0 EF A0 62 0D
+C = 1 A0 EF BF 5A 23
+Xóa byte:
+[<]x5 [DEL]x3 [<]x7 [DEL]x3 [<]x5
+Không làm (*) nữa mà làm hackstring sau:
+<48 bytes> . Q( 1 0 @ ▸t @ 0 ▸a+b𝒊 @ 2 0 . Q( 1 0 or @ or ! Q( @ 2 0 or @ 𝐩 @ 00 Mean(
+Làm xong rồi nhấn [=] [AC]
+
+Nếu nó hiện chữ [BIN] là thành công rồi nhé
+
+-----
+Launcher 4 lines (124an)
+12345678x:
+@ = 1 0.0 00 EA 3D EA 3D 90:
+@ = 1 EA 3D EA 3D 62 3F 23
+Token:
+<48 bytes> ʳ cos⁻¹ ( 10 in‣cm 0 @ 0 0 0 0 ) D 20 ʳ cos⁻¹ ( 10 pc‣km ( @ 0 0 0 0 ) D 20 ʳ cos⁻¹ (10 0𝑒 Imp( @ 0 0 0 0 ) D 20 ʳ cos⁻¹ ( 10 0 1 - @ 0 0 0 0 D 2 0 Q( F 2 0
+<48 bytes> DA 7B 31 30 FE 01 30 EA 30 30 30 30 D0 3D 32 30
+DA 7B 31 30 FE 11 60 EA 30 30 30 30 D0 3D 32 30
+DA 7B 31 30 30 21 90 EA 30 30 30 30 D0 3D 32 30
+DA 7B 31 30 30 31 C0 EA 30 30 30 30 D0 3D 32 30
+62 3F 32 30
+-----
+Launcher 8 lines (non-an)
+123456x:
+@ = 10.000 A0 EB 03 26 0C: 
+@ = 1 90 82 3F 23
+DA 7B 31 30 A0 D8 40 EB 30 30 30 30 C8 03 32 30 26 0C 32 30 90 D8 82 3F 32 30
+-----
+Launcher 6 lines (non-an)
+fd 26 2e dc 60 0d 32
+Token: 
+File by @videochair06
+Program chỉ bị reset khi nhấn [shift] [9] [3] [=] [=]
+Program will reset while you press [shift] [9] [3] [=] [=]
+-----
