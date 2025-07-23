@@ -971,6 +971,7 @@ elif lang in ["En", "en", "EN"]:
                 print("For all details about QuickCPYMax at addr EA30: https://drive.google.com/drive/folders/1qe5C6_YtAQCWAGTPTxgtEUdAjOUShdEs?usp=drive_link")
         elif e>8:
             print("Over lines but Casio fx580vnx can handle !")
+        print("Sorry if my English so bad")
     print("Dev: AxesMC\nDiscord: Casio My Life (@kiet130218_80627) và Kiet1802181 (@Kiet1302181)")
     if random.randint(1,100) == 1:
         print("Good luck !")
