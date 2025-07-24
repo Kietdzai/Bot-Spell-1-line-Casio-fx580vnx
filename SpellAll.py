@@ -3,34 +3,62 @@ import random
 def fill_template(template, hex_list, hex_index):
     filled = []
     i = hex_index
-    byte_count = 0
-
     while_part = 0
+
+    def is_valid(byte, slot):
+        if '!' in slot and (not byte.isdigit() and not byte[-1].isdigit()):
+            return False
+        return True
+
     while while_part < len(template):
         part = template[while_part]
 
         if part == '__' or any(s in part for s in ['_!', '!_', '!!']):
             if i >= len(hex_list):
-                # Không thêm gì nữa nếu hết hex
                 return filled, i, True
 
-            byte = hex_list[i]
+            raw = hex_list[i]
+            bytes_pair = raw.split()
 
-            # Kiểm tra nếu là slot cấm chữ
+            if len(bytes_pair) == 2:
+                if while_part + 1 >= len(template):
+
+                    filled.append('20')
+                    while_part += 1
+
+                    continue
+
+                part1 = template[while_part]
+                part2 = template[while_part + 1]
+                b1, b2 = bytes_pair[0], bytes_pair[1]
+
+                if is_valid(b1, part1) and is_valid(b2, part2):
+                    filled.append(b1)
+                    filled.append(b2)
+                    i += 1
+                    while_part += 2
+                    continue
+                else:
+                    filled.append('20')
+
+                    while_part += 1
+                    continue
+
+            byte = raw
             if '!' in part and (not byte.isdigit() and not byte[-1].isdigit()):
-                filled.append('20')  # fill dummy skibidi
-                # KHÔNG tăng i (vì byte không dùng được)
+                filled.append('20')
+
                 while_part += 1
                 continue
             else:
                 filled.append(byte)
                 i += 1
+                while_part += 1
+                continue
 
-        elif not part.startswith('x'):
+        else:
             filled.append(part)
-            if len(part) == 2 and part != '1.' and not part.startswith('1.'):
-                byte_count += 1
-        while_part += 1
+            while_part += 1
 
     return filled, i, False
 #VN area
@@ -127,10 +155,10 @@ def spell_var_vn (line):
         hex_list.append("3C")
         hex_list.append("23")
         print("[v] có nghĩa là nhấn nút xuống\n[<] có nghĩa là nhấn nút trái\n[>] có nghĩa là nhấn nút phải\n[^] có nghĩa là nhấn lên")
-        print('Bước 1: Reset: \n [shift] [9] [3] [=] [=]')
-        print('Bước 2: Go to LineI/O: \n [shift] [menu] [1] [3]')
-        print('Bước 3: Basic Overflow: \n [x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [9] [9] [CALC] {[=] [AC]}-> nhấn nhanh [<] [del] [del] [CALC] [=] [<] [shift] [.]')
-        print('Bước 4: Take: \n ' + "".join(char1))
+        print('Bước 1: Reset máy: \n [shift] [9] [3] [=] [=]')
+        print('Bước 2: Vào LineI/O: \n [shift] [menu] [1] [3]')
+        print('Bước 3: Vào Basic Overflow: \n [x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [9] [9] [CALC] {[=] [AC]}-> nhấn nhanh [<] [del] [del] [CALC] [=] [<] [shift] [.]')
+        print('Bước 4: Lấy kí tự Hex cần thiết: \n ' + "".join(char1))
 
         print('([<] [9] [DEL])×', len(char1), '[DEL]×10', "[alpha] [∫]\nSau đó, làm sao cho màn hình Casio hiển thị như thế này:")
         template_A = ['1.0000', '__', '__', '__', '_!', '!_', '×10', '!!']
@@ -209,10 +237,11 @@ def spell_var_vn (line):
                     print("[shift] [8] [3] [4]", end=' ')  # Thay thế cho dấu cách
                     p+=1
                 if char not in j:
+                    print(f"[>]", end=' ')
                     p+=1
-                    print(f"[>]", end=' ')
-                if char not in charst:
-                    print(f"[>]", end=' ')
+                if char in j:
+                    if char in charst:
+                        print(f"[>]", end=' ')
         print(f'[{17-p} số bất kì] [shift] [(] [>] [2] [x]')
         print('Bước cuối: [CALC] [=]')
         file.close()
@@ -574,7 +603,7 @@ def spell_var_en (line):
         print('Step 3: Basic Overflow: \n [x] [alpha] [CALC] [shift] [x] [x] [shift] [)] [9] [shift] [)] [9] [9] [9] [CALC] {[=] [AC]}-> nhấn nhanh [<] [del] [del] [CALC] [=] [<] [shift] [.]')
         print('Step 4: Take needed Hex chars: \n ' + "".join(char1))
 
-        print('([<] [9] [DEL])×', len(char1), '[DEL]×10', "[alpha] [∫]\nSau đó, làm sao cho màn hình Casio hiển thị như thế này:")
+        print('([<] [9] [DEL])×', len(char1), '[DEL]×10', "[alpha] [∫]\nAfter that, do when Casio's screen look like this:")
         template_A = ['1.0000', '__', '__', '__', '_!', '!_', '×10', '!!']
         template_B = ['1.', '__', '__', '__', '__', '__', '_!', '!_', '×10', '!!']
         template_C = ['1.', '__', '__', '__', '__', '__', '_!', '!_', '×10', '!!']
@@ -651,10 +680,11 @@ def spell_var_en (line):
                     print("[shift] [8] [3] [4]", end=' ')  # Thay thế cho dấu cách
                     p+=1
                 if char not in j:
+                    print(f"[>]", end=' ')
                     p+=1
-                    print(f"[>]", end=' ')
-                if char not in charst:
-                    print(f"[>]", end=' ')
+                if char in j:
+                    if char in charst:
+                        print(f"[>]", end=' ')
         print(f'[{17-p} optional numbers] [shift] [(] [>] [2] [x]')
         print('Final step: [CALC] [=]')
         file.close()
@@ -918,7 +948,7 @@ def spell_inj_6_en(b):
 
 lang = input("Enter your lang. : English (Type 'EN') or Vietnamese (Type 'VN') ?\nNhập ngôn ngữ : Tiếng Anh (Gõ 'EN') hay Tiếng Việt (Gõ 'VN') ?\n")
 if lang in ["Vn", "vn", "VN"]:
-    print("Chương trình hỗ trợ Spell Casio fx580vnx. Phiên bản 3.0.7")
+    print("Chương trình hỗ trợ Spell Casio fx580vnx. Phiên bản 3.0.8")
     print("Phần chia Hex có thể bị lỗi, thông cảm cho tôi nhé")
     a = input("Bạn muốn spell trên Casio fx580vnx kiểu gì ? Spell bằng các biến A, B, C hay bằng Inject \n Nhập 'var' để spell theo kiểu biến A, B, C \n Nhập 'inj' để spell bằng cách Inject (cho mấy ông thực sự biết làm QuickCPY++) \n")
 
@@ -945,9 +975,11 @@ if lang in ["Vn", "vn", "VN"]:
     print("Dev lỏ: AxesMC\nDiscord: Casio My Life (@kiet130218_80627) và Kiet1802181 (@Kiet1302181)")
     if random.randint(1,100) == 1:
         print("Chúc bạn spell thành công !")
+    if random.randint(1,1000) == 1:
+        print("This dev wants to play Dead Rails :) My secret")
         
 elif lang in ["En", "en", "EN"]:
-    print("Program spell for Casio fx580vnx. Version 3.0.7")
+    print("Program spell for Casio fx580vnx. Version 3.0.8")
 
     a = input("What method do you like to spell ? Spell by A, B, C variables or Inject \n Type 'var' to spell by A, B, C variables \n Type 'inj' to spell by Inject method (for who really know about QuickCPYs) \n")
 
@@ -970,8 +1002,7 @@ elif lang in ["En", "en", "EN"]:
                 spell_inj_8_ol_en(e)
                 print("For all details about QuickCPYMax at addr EA30: https://drive.google.com/drive/folders/1qe5C6_YtAQCWAGTPTxgtEUdAjOUShdEs?usp=drive_link")
         elif e>8:
-            print("Over lines but Casio fx580vnx can handle !")
-        print("Sorry if my English so bad")
+            print("Over lines in Casio fx580vnx can handle !")
     print("Dev: AxesMC\nDiscord: Casio My Life (@kiet130218_80627) và Kiet1802181 (@Kiet1302181)")
     if random.randint(1,100) == 1:
         print("Good luck !")
